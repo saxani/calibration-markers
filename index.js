@@ -2,11 +2,16 @@ import express from 'express';
 import path from 'path';
 
 const app = express();
-const port = process.env.PORT || 3000;
-const __dirname = import.meta.dirname;
+const port = process.env.PORT || 5000;
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(port, () => {
