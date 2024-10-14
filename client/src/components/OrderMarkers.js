@@ -2,7 +2,11 @@ import markers from '../assets/markers@2x.png';
 import Button from './Button';
 import layoutStyles from '../styles/common/layout.module.scss';
 
-const OrderMarkers = () => {
+const OrderMarkers = ({ scrollToForm }) => {
+  const handleClick = () => {
+    scrollToForm();
+  };
+
   return (
     <section className={layoutStyles.content}>
       <div className={layoutStyles.sectionContainer}>
@@ -18,7 +22,7 @@ const OrderMarkers = () => {
             measurement with Cutimed Wound Navigator. This allows you to
             interactively and accurately measure the size of the wound.
           </p>
-          <Button text='Order Calibration Markers' />
+          <Button text='Order Calibration Markers' handleClick={handleClick} />
         </div>
       </div>
     </section>

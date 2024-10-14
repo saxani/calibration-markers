@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import Input from './Input';
 import Dropdown from './Dropdown';
 import SearchAddress from './SearchAddress';
@@ -7,7 +9,7 @@ import Button from '../Button';
 import layoutStyles from '../../styles/common/layout.module.scss';
 import orderStyles from '../../styles/order.module.scss';
 
-const OrderForm = () => {
+const OrderForm = ({ scrollRef }) => {
   const [customer, setCustomer] = useState({
     fullName: '',
     title: '',
@@ -70,6 +72,10 @@ const OrderForm = () => {
     setCustomer({ ...customer, ...args });
   };
 
+  const handleCaptchaChange = () => {
+    console.log('Change!');
+  };
+
   const handleSubmit = async () => {
     console.log(customer);
     if (
@@ -102,7 +108,7 @@ const OrderForm = () => {
   };
 
   return (
-    <section className={layoutStyles.content}>
+    <section className={layoutStyles.content} ref={scrollRef}>
       <div className={orderStyles.container}>
         <h3>Cutimed calibration marker order form</h3>
         <p className={orderStyles.paragraph}>
@@ -159,7 +165,6 @@ const OrderForm = () => {
               <AddressOptions data={addressOptions} onSelect={onSelect} />
             )}
           </div>
-
           <div style={{ display: 'flex', gap: '30px' }}>
             <Input
               name='Address 2'
@@ -209,8 +214,13 @@ const OrderForm = () => {
               * Make sure all required fields are filled out
             </p>
           )}
-
-          <Button text='Submit Order' handleSubmit={handleSubmit} />
+          <ReCAPTCHA
+            style={{ marginBottom: '30px' }}
+            sitekey='Your client site key'
+            onChange={handleCaptchaChange}
+          />
+          ,
+          <Button text='Submit Order' handleClick={handleSubmit} />
         </div>
       </div>
     </section>
@@ -236,120 +246,3 @@ const provinces = [
 ];
 
 const practice = ['Hospital', 'Emergency', 'Clinic'];
-
-{
-  /* <form>
-A simple order form
-<Input name='Search Address:' />
-<Input name='Full Name' />
-<Input name='Title' />
-<Input name='Email' />
-<Input name='Phone Number' />
-<Input name='Street Address' />
-<Input name='Suite Number' />
-<Input name='Province' />
-<Input name='Postal Code' />
-<Input name='Clinical Practice' />
-</form> */
-}
-
-const dataBack = [
-  {
-    Id: 'CA|CP|A|5562236',
-    Text: '1096 Dunbarton Rd',
-    Highlight: '0-4,5-8',
-    Cursor: 0,
-    Description: 'Pickering, ON, L1V 3Z9',
-    Next: 'Retrieve',
-  },
-  {
-    Id: 'CA|CP|A|80249681',
-    Text: '1096 Dundas St W',
-    Highlight: '0-4,5-8',
-    Cursor: 0,
-    Description: 'Toronto, ON, M6J 1X1',
-    Next: 'Retrieve',
-  },
-  {
-    Id: 'CA|CP|A|802612133',
-    Text: '1096 Dundas St W',
-    Highlight: '0-4,5-8',
-    Cursor: 0,
-    Description: 'Toronto, ON, M6J 1X1',
-    Next: 'Retrieve',
-  },
-  {
-    Id: 'CA|CP|A|3571270',
-    Text: '1096 Du Nickel St',
-    Highlight: '0-4,5-9',
-    Cursor: 0,
-    Description: "Val-d'Or, QC, J9P 5W8",
-    Next: 'Retrieve',
-  },
-  {
-    Id: 'CA|CP|A|22112519',
-    Text: '1096 Du Nickel St',
-    Highlight: '0-4,5-9',
-    Cursor: 0,
-    Description: 'Laterrière, QC, G7N 0G5',
-    Next: 'Retrieve',
-  },
-  {
-    Id: 'CA|CP|A|17308983',
-    Text: '1096 Diltz Rd',
-    Highlight: '0-4',
-    Cursor: 0,
-    Description: 'Dunnville, ON, N1A 2W2',
-    Next: 'Retrieve',
-  },
-  {
-    Id: 'CA|CP|A|13615324',
-    Text: '1096 Shore Pine Close',
-    Highlight: '0-4',
-    Cursor: 0,
-    Description: 'Duncan, BC, V9L 0C4',
-    Next: 'Retrieve',
-  },
-];
-
-const retrieve = {
-  Id: 'CA|CP|A|5562236',
-  DomesticId: '5562236',
-  Language: 'ENG',
-  LanguageAlternatives: 'ENG,FRE',
-  Department: '',
-  Company: '',
-  SubBuilding: '',
-  BuildingNumber: '1096',
-  BuildingName: '',
-  SecondaryStreet: '',
-  Street: 'Dunbarton Rd',
-  Block: '',
-  Neighbourhood: '',
-  District: '',
-  City: 'Pickering',
-  Line1: '1096 Dunbarton Rd',
-  Line2: '',
-  Line3: '',
-  Line4: '',
-  Line5: '',
-  AdminAreaName: '',
-  AdminAreaCode: '',
-  Province: 'ON',
-  ProvinceName: 'Ontario',
-  ProvinceCode: 'ON',
-  PostalCode: 'L1V 3Z9',
-  CountryName: 'Canada',
-  CountryIso2: 'CA',
-  CountryIso3: 'CAN',
-  CountryIsoNumber: '124',
-  SortingNumber1: '',
-  SortingNumber2: '',
-  Barcode: '',
-  POBoxNumber: '',
-  Label: '1096 Dunbarton Rd\nPICKERING ON L1V 3Z9\nCANADA',
-  Type: 'Residential',
-  DataLevel: 'Premise',
-  AcIlrc: 'R',
-  AcUm: '0',
-};

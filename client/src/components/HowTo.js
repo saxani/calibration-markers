@@ -6,6 +6,10 @@ import layoutStyles from '../styles/common/layout.module.scss';
 import howtoStyles from '../styles/howto.module.scss';
 
 const HowTo = () => {
+  const handleClick = () => {
+    window.open('https://www.youtube.com/@Cutimed');
+  };
+
   return (
     <section className={howtoStyles.container}>
       <div className={layoutStyles.content}>
@@ -41,7 +45,11 @@ const HowTo = () => {
           </div>
           <div className={layoutStyles.right}>
             <Video />
-            <Button text='VISIT THE CUTIMED YOUTUBE CHANNEL' secondary={true} />
+            <Button
+              text='VISIT THE CUTIMED YOUTUBE CHANNEL'
+              secondary={true}
+              handleClick={handleClick}
+            />
           </div>
         </div>
         <div className={howtoStyles.summaryWrapper}>
