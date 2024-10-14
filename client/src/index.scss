@@ -1,0 +1,23 @@
+@import './styles/common/colours.scss';
+
+body {
+  color: $dark-blue;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 148%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h2,
+h3 {
+  font-size: 42px;
+  color: $text-blue;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react';
 
 import orderStyles from '../../styles/order.module.scss';
 
-const Input = ({
+const Dropdown = ({
   name,
+  data,
   width = '100%',
   required = false,
-  received = '',
   value,
-  param = '',
   handleChange,
+  param,
 }) => {
-  // const [value, setValue] = useState('');
+  // const [val, setVal] = useState('no-option');
 
   // useEffect(() => {
-  //   setValue(received);
+  //   setVal(received);
   // }, [received]);
 
   const onChange = (e) => {
@@ -24,18 +24,31 @@ const Input = ({
   };
 
   return (
-    <div style={{ width: width, marginBottom: '15px' }}>
+    <div style={{ width: width }}>
       <label htmlFor={name} style={{ display: 'block', fontSize: '16px' }}>
         {name}
         {required ? '*' : ''}
       </label>
-      <input
-        className={orderStyles.input}
+
+      <select
+        name={name}
+        className={orderStyles.dropdown}
         value={value}
         onChange={(e) => onChange(e)}
-      />
+      >
+        <option disabled value='no-option'>
+          {' '}
+          -- Select an option --{' '}
+        </option>
+
+        {data.map((item) => (
+          <option value={item} key={item}>
+            {item}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
 
-export default Input;
+export default Dropdown;

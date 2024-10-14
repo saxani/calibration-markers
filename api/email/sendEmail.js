@@ -9,11 +9,11 @@ export default function sendEmail(data) {
       'X-Smtp2go-Api-Key': process.env.SMTP2GO_API_KEY,
     },
     body: JSON.stringify({
-      to: ['Jane Jones <saxani@gmail.com>'],
-      sender: 'John Smith <shaun@pharmad.ca>',
-      subject: 'My Test Email',
-      html_body: '<h1>Test <img src="cid:mypicture.jpg" /></h1>',
-      text_body: 'Test',
+      to: data.to,
+      sender: data.sender,
+      subject: data.subject,
+      html_body: data.htmlBody,
+      text_body: data.textBody,
     }),
   };
 

@@ -1,0 +1,34 @@
+@import './common/colours';
+
+.container {
+  background-image: url('../assets/HEADER@2x.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 732px;
+}
+
+.left,
+.right {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.headingText {
+  font-size: 44px;
+  line-height: 103%;
+  color: $text-blue;
+  padding-left: 17px;
+}
+
+.subTitle {
+  font-size: 31px;
+  font-weight: 700;
+  margin-bottom: 0;
+}

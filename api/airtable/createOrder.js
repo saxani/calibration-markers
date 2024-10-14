@@ -1,30 +1,38 @@
-import { base } from './config';
+import { base } from './config.js';
 
 export default function createOrder(data) {
-  base('Orders').create(
-    [
-      {
-        fields: {
-          Name: 'Shaun',
-          'Company Name': 'PharmAd',
-          'Street Address': '19 test street',
-          'Street Address 2': 'Unit 3',
-          City: 'Toronto',
-          Province: 'Ontario',
-          'Postal Code': 'M5B3D4',
+  return new Promise((resolve, reject) => {
+    base('Orders').create(
+      [
+        {
+          fields: {
+            Name: data.fullName,
+            Title: data.title,
+            Email: data.email,
+            'Phone Number': data.phone,
+            'Street Address': data.address1,
+            'Street Address 2': data.address2,
+            City: data.city,
+            Province: data.province,
+            'Postal Code': data.postal,
+            'Clinical Practice': data.clinic,
+          },
         },
-      },
-    ],
-    function (err, records) {
-      if (err) {
-        console.error(err);
-        return;
+      ],
+      function (err, records) {
+        if (err) {
+          console.error(err);
+          reject(err);
+        }
+        records.forEach(function (record) {
+          console.log('New record created with id: ');
+          console.log(record.getId());
+        });
+
+        resolve('ok');
       }
-      records.forEach(function (record) {
-        console.log(record.getId());
-      });
-    }
-  );
+    );
+  });
 }
 
 // Sort of what Canada Post fields will look like
