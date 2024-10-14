@@ -28,7 +28,7 @@ function App() {
     }
   };
 
-  if (!auth) {
+  if (!auth && process.env.NODE_ENV !== 'development') {
     return (
       <div
         style={{

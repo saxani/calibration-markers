@@ -28,7 +28,12 @@ const OrderForm = ({ scrollRef }) => {
   const [error, setError] = useState(false);
 
   async function sendData(val) {
-    const response = await fetch('http://localhost:5000/search', {
+    const url =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:5000/search'
+        : '/search';
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +52,12 @@ const OrderForm = ({ scrollRef }) => {
   async function onSelect(item) {
     setShowAddressOptions(false);
 
-    const response = await fetch('http://localhost:5000/get-address', {
+    const url =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:5000/get-address'
+        : '/get-address';
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +100,12 @@ const OrderForm = ({ scrollRef }) => {
     ) {
       setError(true);
     } else {
-      const response = await fetch('http://localhost:5000/submit', {
+      const url =
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:5000/submit'
+          : '/submit';
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
