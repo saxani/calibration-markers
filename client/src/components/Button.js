@@ -1,6 +1,14 @@
+import ClipLoader from 'react-spinners/ClipLoader';
+
 import buttonStyles from '../styles/button.module.scss';
 
-const Button = ({ text, secondary = false, handleClick }) => {
+const Button = ({
+  text,
+  secondary = false,
+  handleClick,
+  submit = false,
+  loading,
+}) => {
   return (
     <button
       onClick={handleClick}
@@ -10,7 +18,7 @@ const Button = ({ text, secondary = false, handleClick }) => {
           : `${buttonStyles.large} ${buttonStyles.common}`
       }
     >
-      {text}
+      {text} {submit && <ClipLoader color='#fff' loading={loading} size={14} />}
     </button>
   );
 };

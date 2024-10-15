@@ -1,11 +1,6 @@
 import { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import FormInputs from './FormInputs';
 
-import Input from './Input';
-import Dropdown from './Dropdown';
-import SearchAddress from './SearchAddress';
-import AddressOptions from './AddressOptions';
-import Button from '../Button';
 import layoutStyles from '../../styles/common/layout.module.scss';
 import orderStyles from '../../styles/order.module.scss';
 
@@ -25,6 +20,7 @@ const OrderForm = ({ scrollRef }) => {
 
   const [addressOptions, setAddressOptions] = useState('');
   const [showAddressOptions, setShowAddressOptions] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   async function sendData(val) {
@@ -82,12 +78,8 @@ const OrderForm = ({ scrollRef }) => {
     setCustomer({ ...customer, ...args });
   };
 
-  const handleCaptchaChange = () => {
-    console.log('Change!');
-  };
-
   const handleSubmit = async () => {
-    console.log(customer);
+    setLoading(true);
     if (
       !customer.fullName ||
       !customer.title ||
@@ -114,10 +106,25 @@ const OrderForm = ({ scrollRef }) => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (data.response === 'ok') {
-        console.log('SUCCESSSSS');
+        setLoading(false);
+        alert(
+          'Your submission has been received. You will be notified once your markers have been sent!'
+        );
+
+        setCustomer({
+          fullName: '',
+          title: '',
+          email: '',
+          phone: '',
+          address1: '',
+          address2: '',
+          city: '',
+          province: 'no-option',
+          postal: '',
+          clinic: 'no-option',
+        });
       }
     }
   };
@@ -133,131 +140,20 @@ const OrderForm = ({ scrollRef }) => {
           interactively and precisely. Complete the form below to request your
           calibration markers and enhance your wound care assessments.
         </p>
-        <div>
-          <div style={{ display: 'flex', gap: '30px' }}>
-            <Input
-              name='Full Name'
-              width='50%'
-              required={true}
-              value={customer.fullName}
-              param='fullName'
-              handleChange={handleChange}
-            />
-            <Input
-              name='Title'
-              width='50%'
-              required={true}
-              value={customer.title}
-              param='title'
-              handleChange={handleChange}
-            />
-          </div>
-          <div style={{ display: 'flex', gap: '30px' }}>
-            <Input
-              name='Email'
-              width='50%'
-              required={true}
-              value={customer.email}
-              param='email'
-              handleChange={handleChange}
-            />
-            <Input
-              name='Phone Number'
-              width='50%'
-              required={true}
-              value={customer.phone}
-              param='phone'
-              handleChange={handleChange}
-            />
-          </div>
-          <div style={{ position: 'relative' }}>
-            <SearchAddress
-              sendData={sendData}
-              value={customer.address1}
-              handleChange={handleChange}
-            />
-            {showAddressOptions && (
-              <AddressOptions data={addressOptions} onSelect={onSelect} />
-            )}
-          </div>
-          <div style={{ display: 'flex', gap: '30px' }}>
-            <Input
-              name='Address 2'
-              width='66%'
-              value={customer.address2}
-              param='address2'
-              handleChange={handleChange}
-            />
-            <Input
-              name='City'
-              width='33%'
-              value={customer.city}
-              param='city'
-              required={true}
-              handleChange={handleChange}
-            />
-          </div>
-          <div style={{ display: 'flex', gap: '30px', marginBottom: '20px' }}>
-            <Dropdown
-              name='Province'
-              data={provinces}
-              width='33%'
-              required={true}
-              value={customer.province}
-              param='province'
-              handleChange={handleChange}
-            />
-            <Input
-              name='Postal Code'
-              width='33%'
-              required={true}
-              value={customer.postal}
-              param='postal'
-              handleChange={handleChange}
-            />
-            <Dropdown
-              name='Clinical Practice'
-              data={practice}
-              width='33%'
-              value={customer.clinic}
-              param='clinic'
-              handleChange={handleChange}
-            />
-          </div>
-          {error && (
-            <p style={{ color: 'red', fontSize: '18px', fontWeight: '700' }}>
-              * Make sure all required fields are filled out
-            </p>
-          )}
-          <ReCAPTCHA
-            style={{ marginBottom: '30px' }}
-            sitekey='Your client site key'
-            onChange={handleCaptchaChange}
-          />
-          ,
-          <Button text='Submit Order' handleClick={handleSubmit} />
-        </div>
+        <FormInputs
+          handleChange={handleChange}
+          customer={customer}
+          sendData={sendData}
+          addressOptions={addressOptions}
+          onSelect={onSelect}
+          error={error}
+          handleSubmit={handleSubmit}
+          showAddressOptions={showAddressOptions}
+          loading={loading}
+        />
       </div>
     </section>
   );
 };
 
 export default OrderForm;
-
-const provinces = [
-  'Alberta',
-  'British Columbia',
-  'Manitoba',
-  'New Brunswick',
-  'Newfoundland & Labrador',
-  'Northwest Territories',
-  'Nova Scotia',
-  'Nunavut',
-  'Ontario',
-  'Prince Edward Island',
-  'Quebec',
-  'Saskatchewan',
-  'Yukon',
-];
-
-const practice = ['Hospital', 'Emergency', 'Clinic'];
