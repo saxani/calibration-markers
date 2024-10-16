@@ -16,6 +16,8 @@ export default function createOrder(data) {
             Province: data.province,
             'Postal Code': data.postal,
             'Clinical Practice': data.clinic,
+            Quantity: data.quantity,
+            Status: 'Submitted',
           },
         },
       ],

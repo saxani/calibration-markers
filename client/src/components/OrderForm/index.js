@@ -16,6 +16,7 @@ const OrderForm = ({ scrollRef }) => {
     province: 'no-option',
     postal: '',
     clinic: 'no-option',
+    quantity: 1,
   });
 
   const [addressOptions, setAddressOptions] = useState('');
@@ -124,6 +125,7 @@ const OrderForm = ({ scrollRef }) => {
           province: 'no-option',
           postal: '',
           clinic: 'no-option',
+          quantity: 1,
         });
       }
     }

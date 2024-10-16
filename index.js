@@ -44,7 +44,7 @@ app.post('/submit', async (req, res) => {
 
   if (response === 'ok') {
     const emailData = {
-      to: ['Shaun Axani <saxani@gmail.com>'],
+      to: ['PharmAd Marketing <essity@pharmad.ca>'],
       sender: 'Automated bot <no-reply@pharmad.ca>',
       subject: 'New Calibration Markers Request',
       htmlBody: `<p>${req.body.customer.fullName} has requested Calibration Markers. Check <a href='https://airtable.com/appBlDbm2Ec0hB352/tblW28ipM0gGkFk7Z/viwgHNKxFl2sZobbG?blocks=hide'>Airtable</a> for full details.<p>`,

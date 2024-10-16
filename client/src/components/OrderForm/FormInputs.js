@@ -86,7 +86,7 @@ const FormInputs = ({
           handleChange={handleChange}
         />
       </div>
-      <div style={{ display: 'flex', gap: '30px', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', gap: '30px' }}>
         <Dropdown
           name='Province'
           data={provinces}
@@ -113,6 +113,15 @@ const FormInputs = ({
           handleChange={handleChange}
         />
       </div>
+      <div style={{ display: 'flex', gap: '30px', marginBottom: '20px' }}>
+        <Input
+          name='# of sheets (each has 15-markers)'
+          width='326px'
+          value={customer.quantity}
+          param='quantity'
+          handleChange={handleChange}
+        />
+      </div>
       {error && (
         <p style={{ color: 'red', fontSize: '18px', fontWeight: '700' }}>
           * Make sure all required fields are filled out
@@ -120,7 +129,7 @@ const FormInputs = ({
       )}
       <ReCAPTCHA
         style={{ marginBottom: '30px' }}
-        sitekey='Your client site key'
+        sitekey='6Leb02IqAAAAAJ59TEeznM7IscAf9PA_noz7W376'
         onChange={handleCaptchaChange}
       />
       <Button

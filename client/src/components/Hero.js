@@ -32,8 +32,20 @@ const Hero = () => {
               range with other healthcare professionals.
             </p>
             <div className={heroStyles.iconContainer}>
-              <Logo src={google} width={202} height={59} marginRight={38} />
-              <Logo src={apple} width={202} height={59} />
+              <a
+                href='https://play.google.com/store/apps/details?id=io.imito.cutimed'
+                rel='noreferrer'
+                target='_blank'
+              >
+                <Logo src={google} width={202} height={59} marginRight={38} />
+              </a>
+              <a
+                href='https://apps.apple.com/de/app/cutimed-wound-navigator/id1549888706'
+                rel='noreferrer'
+                target='_blank'
+              >
+                <Logo src={apple} width={202} height={59} />
+              </a>
             </div>
           </div>
           <div className={layoutStyles.right}>
