@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import Input from './Input';
@@ -17,8 +18,27 @@ const FormInputs = ({
   showAddressOptions,
   loading,
 }) => {
-  const handleCaptchaChange = () => {
-    console.log('Change!');
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const handleCaptchaChange = async (captcha) => {
+    const url =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:5000/captcha'
+        : '/captcha';
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ captcha: captcha }),
+    });
+
+    const data = await response.json();
+
+    if (data.status.success === true) {
+      setAuthenticated(true);
+    }
   };
 
   return (
@@ -59,85 +79,91 @@ const FormInputs = ({
           handleChange={handleChange}
         />
       </div>
-      <div style={{ position: 'relative' }}>
-        <SearchAddress
-          sendData={sendData}
-          value={customer.address1}
-          handleChange={handleChange}
+      {!authenticated && (
+        <ReCAPTCHA
+          style={{ marginBottom: '30px' }}
+          sitekey='6Leb02IqAAAAAJ59TEeznM7IscAf9PA_noz7W376'
+          onChange={handleCaptchaChange}
         />
-        {showAddressOptions && (
-          <AddressOptions data={addressOptions} onSelect={onSelect} />
-        )}
-      </div>
-      <div style={{ display: 'flex', gap: '30px' }}>
-        <Input
-          name='Address 2'
-          width='66%'
-          value={customer.address2}
-          param='address2'
-          handleChange={handleChange}
-        />
-        <Input
-          name='City'
-          width='33%'
-          value={customer.city}
-          param='city'
-          required={true}
-          handleChange={handleChange}
-        />
-      </div>
-      <div style={{ display: 'flex', gap: '30px' }}>
-        <Dropdown
-          name='Province'
-          data={provinces}
-          width='33%'
-          required={true}
-          value={customer.province}
-          param='province'
-          handleChange={handleChange}
-        />
-        <Input
-          name='Postal Code'
-          width='33%'
-          required={true}
-          value={customer.postal}
-          param='postal'
-          handleChange={handleChange}
-        />
-        <Dropdown
-          name='Clinical Practice'
-          data={practice}
-          width='33%'
-          value={customer.clinic}
-          param='clinic'
-          handleChange={handleChange}
-        />
-      </div>
-      <div style={{ display: 'flex', gap: '30px', marginBottom: '20px' }}>
-        <Input
-          name='# of sheets (each has 15-markers)'
-          width='326px'
-          value={customer.quantity}
-          param='quantity'
-          handleChange={handleChange}
-        />
-      </div>
-      {error && (
-        <p style={{ color: 'red', fontSize: '18px', fontWeight: '700' }}>
-          * Make sure all required fields are filled out
-        </p>
       )}
-      <ReCAPTCHA
-        style={{ marginBottom: '30px' }}
-        sitekey='6Leb02IqAAAAAJ59TEeznM7IscAf9PA_noz7W376'
-        onChange={handleCaptchaChange}
-      />
-      <Button
-        text='Submit Order'
-        handleClick={handleSubmit}
-        submit={true}
-        loading={loading}
-      />
+      {authenticated && (
+        <div>
+          <div style={{ position: 'relative' }}>
+            <SearchAddress
+              sendData={sendData}
+              value={customer.address1}
+              handleChange={handleChange}
+            />
+            {showAddressOptions && (
+              <AddressOptions data={addressOptions} onSelect={onSelect} />
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: '30px' }}>
+            <Input
+              name='Address 2'
+              width='66%'
+              value={customer.address2}
+              param='address2'
+              handleChange={handleChange}
+            />
+            <Input
+              name='City'
+              width='33%'
+              value={customer.city}
+              param='city'
+              required={true}
+              handleChange={handleChange}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: '30px' }}>
+            <Dropdown
+              name='Province'
+              data={provinces}
+              width='33%'
+              required={true}
+              value={customer.province}
+              param='province'
+              handleChange={handleChange}
+            />
+            <Input
+              name='Postal Code'
+              width='33%'
+              required={true}
+              value={customer.postal}
+              param='postal'
+              handleChange={handleChange}
+            />
+            <Dropdown
+              name='Clinical Practice'
+              data={practice}
+              width='33%'
+              value={customer.clinic}
+              param='clinic'
+              handleChange={handleChange}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: '30px', marginBottom: '20px' }}>
+            <Input
+              name='# of sheets (each has 15-markers)'
+              width='326px'
+              value={customer.quantity}
+              param='quantity'
+              handleChange={handleChange}
+            />
+          </div>
+          {error && (
+            <p style={{ color: 'red', fontSize: '18px', fontWeight: '700' }}>
+              * Make sure all required fields are filled out
+            </p>
+          )}
+          <Button
+            text='Submit Order'
+            handleClick={handleSubmit}
+            submit={true}
+            loading={loading}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,8 +1,6 @@
 import styles from '../../styles/addresses.module.scss';
 
 const AddressOptions = ({ data, onSelect }) => {
-  console.log(data);
-
   return (
     <div className={styles.container}>
       <ul className={styles.list}>

@@ -54,6 +54,26 @@ app.post('/submit', async (req, res) => {
   }
 });
 
+app.post('/captcha', async (req, res) => {
+  console.log('Server: Printing Request Body: ', req.body.captcha);
+  const SECRET_KEY = process.env.CAPTCHA_SECRET_KEY;
+  const VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify';
+
+  const response = await fetch(`${VERIFY_URL}`, {
+    method: 'post',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+    },
+    body: `secret=${SECRET_KEY}&response=${req.body.captcha}`,
+  });
+
+  const isHuman = await response.json();
+  console.log(isHuman);
+
+  res.send({ status: isHuman });
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
