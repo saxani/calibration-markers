@@ -1,4 +1,5 @@
 @import './colours';
+@import './sizes';
 
 .container {
   max-width: 1440px;
@@ -8,14 +9,22 @@
 
 .content {
   max-width: 1200px;
+  width: 90%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
 .sectionContainer {
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 25px;
+
+  @include small {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .left,
@@ -23,6 +32,10 @@
   display: flex;
   width: 50%;
   flex-direction: column;
+
+  @include small {
+    width: 90%;
+  }
 }
 
 .pinkAlt {

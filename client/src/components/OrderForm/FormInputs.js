@@ -7,6 +7,8 @@ import SearchAddress from './SearchAddress';
 import AddressOptions from './AddressOptions';
 import Button from '../Button';
 
+import inputStyles from '../../styles/input.module.scss';
+
 const FormInputs = ({
   handleChange,
   customer,
@@ -43,10 +45,9 @@ const FormInputs = ({
 
   return (
     <div>
-      <div style={{ display: 'flex', gap: '30px' }}>
+      <div className={`${inputStyles.row} ${inputStyles.halves}`}>
         <Input
           name='Full Name'
-          width='50%'
           required={true}
           value={customer.fullName}
           param='fullName'
@@ -54,17 +55,15 @@ const FormInputs = ({
         />
         <Input
           name='Title'
-          width='50%'
           required={true}
           value={customer.title}
           param='title'
           handleChange={handleChange}
         />
       </div>
-      <div style={{ display: 'flex', gap: '30px' }}>
+      <div className={`${inputStyles.row} ${inputStyles.halves}`}>
         <Input
           name='Email'
-          width='50%'
           required={true}
           value={customer.email}
           param='email'
@@ -72,7 +71,6 @@ const FormInputs = ({
         />
         <Input
           name='Phone Number'
-          width='50%'
           required={true}
           value={customer.phone}
           param='phone'
@@ -98,24 +96,24 @@ const FormInputs = ({
               <AddressOptions data={addressOptions} onSelect={onSelect} />
             )}
           </div>
-          <div style={{ display: 'flex', gap: '30px' }}>
+          <div className={`${inputStyles.row} ${inputStyles.twoThirds}`}>
             <Input
               name='Address 2'
-              width='66%'
               value={customer.address2}
+              width='66%'
               param='address2'
               handleChange={handleChange}
             />
             <Input
               name='City'
-              width='33%'
               value={customer.city}
+              width='33%'
               param='city'
               required={true}
               handleChange={handleChange}
             />
           </div>
-          <div style={{ display: 'flex', gap: '30px' }}>
+          <div className={`${inputStyles.row} ${inputStyles.thirds}`}>
             <Dropdown
               name='Province'
               data={provinces}

@@ -1,4 +1,5 @@
 @import './styles/common/colours.scss';
+@import './styles/common/sizes.scss';
 
 body {
   color: $dark-blue;
@@ -9,12 +10,29 @@ body {
   line-height: 148%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @include large {
+    font-size: 20px;
+  }
+
+  @include medium {
+    font-size: 16px;
+  }
 }
 
 h2,
 h3 {
   font-size: 42px;
   color: $text-blue;
+  line-height: 105%;
+
+  @include medium {
+    font-size: 32px;
+  }
+
+  @include small {
+    font-size: 26px;
+  }
 }
 
 code {

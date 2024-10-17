@@ -24,7 +24,7 @@ const Dropdown = ({
   };
 
   return (
-    <div style={{ width: width }}>
+    <div style={{ width: width, marginBottom: '15px' }}>
       <label htmlFor={name} style={{ display: 'block', fontSize: '16px' }}>
         {name}
         {required ? '*' : ''}

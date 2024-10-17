@@ -1,9 +1,29 @@
 @import './common/colours';
+@import './common/sizes';
 
 .container {
   background-color: $ultra-light-blue;
-  padding-top: 70px;
+  padding-top: 60px;
   padding-bottom: 100px;
+
+  .flexContainer {
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+
+  .title {
+    @include small {
+      display: none;
+    }
+  }
+
+  .smallTitle {
+    display: none;
+
+    @include small {
+      display: block;
+    }
+  }
 }
 
 .subTitle {
@@ -11,6 +31,14 @@
   line-height: 103%;
   font-size: 30px;
   margin-bottom: 10px;
+
+  @include large {
+    font-size: 28px;
+  }
+
+  @include medium {
+    font-size: 22px;
+  }
 }
 
 .steps {

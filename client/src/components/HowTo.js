@@ -1,5 +1,5 @@
 import Button from './Button';
-import Logo from './Logo';
+import Logo from './SVGLogo';
 import Video from './Video';
 import summary from '../assets/summary@2x.png';
 import layoutStyles from '../styles/common/layout.module.scss';
@@ -13,9 +13,16 @@ const HowTo = () => {
   return (
     <section className={howtoStyles.container}>
       <div className={layoutStyles.content}>
-        <h3>Here's how the Cutimed Wound Navigator app works:</h3>
-        <div className={layoutStyles.sectionContainer}>
+        <h3 className={howtoStyles.title}>
+          Here's how the Cutimed Wound Navigator app works:
+        </h3>
+        <div
+          className={`${layoutStyles.sectionContainer} ${howtoStyles.flexContainer}`}
+        >
           <div className={layoutStyles.left}>
+            <h3 className={howtoStyles.smallTitle}>
+              Here's how the Cutimed Wound Navigator app works:
+            </h3>
             <p className={howtoStyles.subTitle}>
               The Cutimed Wound Navigator App gives you a product range for
               individual wound care in three easy steps:

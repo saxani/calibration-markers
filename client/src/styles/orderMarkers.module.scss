@@ -1,0 +1,9 @@
+@import './common/sizes';
+
+.container {
+  padding: 100px 0;
+
+  @include medium {
+    padding: 70px 0;
+  }
+}

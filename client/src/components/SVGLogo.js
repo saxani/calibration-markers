@@ -1,4 +1,10 @@
-const Logo = ({ src, width, height, marginRight = 0, marginLeft = 0 }) => {
+const Logo = ({
+  src,
+  width = '100%',
+  height = '100%',
+  marginRight = 0,
+  marginLeft = 0,
+}) => {
   return (
     <img
       src={src}

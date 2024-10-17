@@ -14,8 +14,8 @@ const Button = ({
       onClick={handleClick}
       className={
         secondary
-          ? `${buttonStyles.large} ${buttonStyles.common} ${buttonStyles.secondary}`
-          : `${buttonStyles.large} ${buttonStyles.common}`
+          ? `${buttonStyles.common} ${buttonStyles.secondary}`
+          : `${buttonStyles.common}`
       }
     >
       {text} {submit && <ClipLoader color='#fff' loading={loading} size={14} />}

@@ -12,7 +12,9 @@ const Header = ({ scrollToForm }) => {
   return (
     <div className={layoutStyles.content}>
       <div className={headerStyles.container}>
-        <Image filename='essity_logo_colour' extension='png' />
+        <div className={headerStyles.logoWrapper}>
+          <Image filename='essity_logo_colour' extension='png' />
+        </div>
         <Button text='Order Calibration Markers' handleClick={handleClick} />
       </div>
     </div>

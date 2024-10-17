@@ -1,4 +1,5 @@
 @import './common/colours';
+@import './common/sizes';
 
 .common {
   color: $white;
@@ -7,16 +8,21 @@
   border: 0;
   border-radius: 5px;
   background-color: $button-pink;
+  padding: 10px 25px;
+  font-size: 20px;
+
+  @include medium {
+    font-size: 16px;
+  }
+
+  @include small {
+    font-size: 14px;
+  }
 
   &:hover {
     cursor: pointer;
     background-color: $dark-blue;
   }
-}
-
-.large {
-  font-size: 20px;
-  padding: 10px 25px;
 }
 
 .secondary {

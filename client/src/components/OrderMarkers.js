@@ -1,6 +1,8 @@
-import markers from '../assets/markers@2x.png';
+import Image from './Image';
+
 import Button from './Button';
 import layoutStyles from '../styles/common/layout.module.scss';
+import markersStyles from '../styles/orderMarkers.module.scss';
 
 const OrderMarkers = ({ scrollToForm }) => {
   const handleClick = () => {
@@ -9,9 +11,11 @@ const OrderMarkers = ({ scrollToForm }) => {
 
   return (
     <section className={layoutStyles.content}>
-      <div className={layoutStyles.sectionContainer}>
+      <div
+        className={`${layoutStyles.sectionContainer} ${markersStyles.container}`}
+      >
         <div className={layoutStyles.left}>
-          <img src={markers} />
+          <Image filename='markers_2' extension='png' />
         </div>
         <div className={layoutStyles.right}>
           <h3 style={{ marginBottom: '15px', marginTop: 0 }}>

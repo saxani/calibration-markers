@@ -1,0 +1,45 @@
+@import './common/sizes';
+
+.row {
+  display: flex;
+  gap: 30px;
+}
+
+.halves {
+  div {
+    width: 50%;
+  }
+
+  @include medium {
+    flex-direction: column;
+    gap: 0;
+
+    div {
+      width: 100%;
+    }
+  }
+}
+
+.twoThirds {
+  @include medium {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  div {
+    @include medium {
+      width: 100% !important;
+    }
+  }
+}
+
+@include medium {
+  .thirds {
+    flex-direction: column;
+    gap: 0;
+
+    div {
+      width: 100% !important;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 import Header from './Header';
 import Hero from './Hero';
@@ -9,8 +9,6 @@ import OrderForm from './OrderForm';
 import layoutStyles from '../styles/common/layout.module.scss';
 
 function App() {
-  const [auth, setAuth] = useState(false);
-  const [password, setPassword] = useState('');
   const scrollRef = useRef(null);
 
   const scrollToForm = () => {
@@ -21,35 +19,6 @@ function App() {
       });
     }
   };
-
-  const handleSubmit = () => {
-    if (password === 'Pharmad2024') {
-      setAuth(true);
-    }
-  };
-
-  if (!auth && process.env.NODE_ENV !== 'development') {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <p>Input password to view site</p>
-        <input
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button style={{ marginTop: '20px' }} onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className={layoutStyles.container}>
