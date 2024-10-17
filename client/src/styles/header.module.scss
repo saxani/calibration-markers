@@ -11,7 +11,9 @@
   }
 
   @include small {
-    height: 63px;
+    height: auto;
+    padding: 12px 0px;
+    flex-wrap: wrap;
   }
 }
 
