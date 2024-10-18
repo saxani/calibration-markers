@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import verifyAddress from './api/addressComplete/verifyAddress.js';
 import getFullAddress from './api/addressComplete/getFullAddress.js';
+import emailContent from './api/email/emailContent.js';
 import sendEmail from './api/email/sendEmail.js';
 import createOrder from './api/airtable/createOrder.js';
 
@@ -39,15 +40,17 @@ app.post('/get-address', async (req, res) => {
 app.post('/submit', async (req, res) => {
   console.log('Got submission');
   console.log(req.body.customer);
-  const response = await createOrder(req.body.customer);
+  const { customer } = req.body;
+  const response = await createOrder(customer);
   res.send({ response: response });
 
   if (response === 'ok') {
+    const content = emailContent(customer);
     const emailData = {
       to: ['PharmAd Marketing <essity@pharmad.ca>'],
       sender: 'Automated bot <no-reply@pharmad.ca>',
       subject: 'New Calibration Markers Request',
-      htmlBody: `<p>${req.body.customer.fullName} has requested Calibration Markers. Check <a href='https://airtable.com/appBlDbm2Ec0hB352/tblW28ipM0gGkFk7Z/viwgHNKxFl2sZobbG?blocks=hide'>Airtable</a> for full details.<p>`,
+      htmlBody: content,
     };
 
     sendEmail(emailData);
