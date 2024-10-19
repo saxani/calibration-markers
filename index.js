@@ -42,12 +42,18 @@ app.post('/submit', async (req, res) => {
   console.log(req.body.customer);
   const { customer } = req.body;
   const response = await createOrder(customer);
-  res.send({ response: response });
 
-  if (response === 'ok') {
-    const content = emailContent(customer);
+  console.log(response.record);
+
+  if (response.record.id) {
+    res.send({ response: 'ok' });
+
+    const content = emailContent(
+      customer,
+      response.record.fields['Order Number']
+    );
     const emailData = {
-      to: ['PharmAd Marketing <essity@pharmad.ca>'],
+      to: ['PharmAd Marketing <shaun@pharmad.ca>'],
       sender: 'Automated bot <no-reply@pharmad.ca>',
       subject: 'New Calibration Markers Request',
       htmlBody: content,
