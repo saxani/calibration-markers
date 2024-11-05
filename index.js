@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import 'dotenv/config';
 
 import verifyAddress from './api/addressComplete/verifyAddress.js';
 import getFullAddress from './api/addressComplete/getFullAddress.js';
@@ -81,6 +82,18 @@ app.post('/captcha', async (req, res) => {
   console.log(isHuman);
 
   res.send({ status: isHuman });
+});
+
+app.post('/login', async (req, res) => {
+  console.log('Got a login request for the admin panel');
+  console.log(req.body);
+  let matches = false;
+
+  if (req.body.password === process.env.ADMIN_PASSWORD) {
+    matches = true;
+  }
+
+  res.send({ matches });
 });
 
 app.get('*', (req, res) => {

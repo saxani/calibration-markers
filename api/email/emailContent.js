@@ -22,12 +22,12 @@ export default function emailContent(customer, orderNumber) {
   </tr>
   <tr>
     <td>Cutimed Calibration Markers: English; 1 sheet</td>
-    <td>136694E</td>
+    <td>136697E</td>
     <td>${customer.quantity}</td>
   </tr>
   <tr>
     <td>Cutimed Calibration Markers Envelope: English; 1 each</td>
-    <td>136697E</td>
+    <td>136694E</td>
     <td>1</td>
   </tr>
   </table>
