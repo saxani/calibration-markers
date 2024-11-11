@@ -8,6 +8,7 @@ import getFullAddress from './api/addressComplete/getFullAddress.js';
 import emailContent from './api/email/emailContent.js';
 import sendEmail from './api/email/sendEmail.js';
 import createOrder from './api/airtable/createOrder.js';
+import updateInventory from './api/airtable/updateInventory.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -41,10 +42,12 @@ app.post('/get-address', async (req, res) => {
 app.post('/submit', async (req, res) => {
   console.log('Got submission');
   console.log(req.body.customer);
+  const environment = app.get('env');
   const { customer } = req.body;
-  const response = await createOrder(customer);
-
+  const response = await createOrder(customer, environment);
   console.log(response.record);
+
+  const lastRecord = await updateInventory(response.record, environment);
 
   if (response.record.id) {
     res.send({ response: 'ok' });

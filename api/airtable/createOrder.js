@@ -1,7 +1,9 @@
-import { base } from './config.js';
+import authAirtable from './config.js';
 
-export default function createOrder(data) {
-  return new Promise((resolve, reject) => {
+export default function createOrder(data, environment) {
+  return new Promise(async (resolve, reject) => {
+    const base = await authAirtable(environment);
+
     base('Orders').create(
       [
         {
