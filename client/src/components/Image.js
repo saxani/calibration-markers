@@ -11,13 +11,17 @@ const Image = ({
   const one = require(`../assets/${filename}.${extension}`);
 
   return (
-    <img
-      marginLeft={marginLeft}
-      marginRight={marginRight}
-      width={width}
-      height={height}
-      srcSet={`${three} 3x, ${two} 2x, ${one} 1x`}
-    />
+    <div>
+      <img
+        style={{
+          marginLeft: { marginLeft },
+          marginRight: { marginRight },
+        }}
+        width={width}
+        height={height}
+        srcSet={`${three} 3x, ${two} 2x, ${one} 1x`}
+      />
+    </div>
   );
 };
 

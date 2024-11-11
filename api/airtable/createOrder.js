@@ -1,7 +1,9 @@
-import { base } from './config.js';
+import authAirtable from './config.js';
 
-export default function createOrder(data) {
-  return new Promise((resolve, reject) => {
+export default function createOrder(data, environment) {
+  return new Promise(async (resolve, reject) => {
+    const base = await authAirtable(environment);
+
     base('Orders').create(
       [
         {
@@ -29,25 +31,11 @@ export default function createOrder(data) {
         records.forEach(function (record) {
           console.log('New record created with id: ');
           console.log(record.getId());
-        });
+          console.log(record);
 
-        resolve('ok');
+          resolve({ record: record });
+        });
       }
     );
   });
 }
-
-// Sort of what Canada Post fields will look like
-// var fields = [
-//   { element: "search", field: "", mode: pca.fieldMode.SEARCH },
-
-//   { element: "street-address", field: "Line1", mode: pca.fieldMode.POPULATE },
-//   { element: "street-address2", field: "Line2", mode: pca.fieldMode.POPULATE },
-//   { element: "city", field: "City", mode: pca.fieldMode.POPULATE },
-//   { element: "state", field: "ProvinceName", mode: pca.fieldMode.POPULATE },
-//   { element: "postcode", field: "PostalCode" },
-//   { element: "country", field: "CountryName", mode: pca.fieldMode.COUNTRY },
-
-//   { element: "multi-unit", field: "{AcMua}", mode: pca.fieldMode.POPULATE },
-//   { element: "residential-business", field: "{AcRbdi}", mode: pca.fieldMode.POPULATE }
-// ],

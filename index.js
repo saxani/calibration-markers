@@ -1,12 +1,14 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import 'dotenv/config';
 
 import verifyAddress from './api/addressComplete/verifyAddress.js';
 import getFullAddress from './api/addressComplete/getFullAddress.js';
 import emailContent from './api/email/emailContent.js';
 import sendEmail from './api/email/sendEmail.js';
 import createOrder from './api/airtable/createOrder.js';
+import updateInventory from './api/airtable/updateInventory.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -40,14 +42,22 @@ app.post('/get-address', async (req, res) => {
 app.post('/submit', async (req, res) => {
   console.log('Got submission');
   console.log(req.body.customer);
+  const environment = app.get('env');
   const { customer } = req.body;
-  const response = await createOrder(customer);
-  res.send({ response: response });
+  const response = await createOrder(customer, environment);
+  console.log(response.record);
 
-  if (response === 'ok') {
-    const content = emailContent(customer);
+  const lastRecord = await updateInventory(response.record, environment);
+
+  if (response.record.id) {
+    res.send({ response: 'ok' });
+
+    const content = emailContent(
+      customer,
+      response.record.fields['Order Number']
+    );
     const emailData = {
-      to: ['PharmAd Marketing <essity@pharmad.ca>'],
+      to: ['PharmAd Marketing <shaun@pharmad.ca>'],
       sender: 'Automated bot <no-reply@pharmad.ca>',
       subject: 'New Calibration Markers Request',
       htmlBody: content,
@@ -75,6 +85,18 @@ app.post('/captcha', async (req, res) => {
   console.log(isHuman);
 
   res.send({ status: isHuman });
+});
+
+app.post('/login', async (req, res) => {
+  console.log('Got a login request for the admin panel');
+  console.log(req.body);
+  let matches = false;
+
+  if (req.body.password === process.env.ADMIN_PASSWORD) {
+    matches = true;
+  }
+
+  res.send({ matches });
 });
 
 app.get('*', (req, res) => {
