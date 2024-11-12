@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import layoutStyles from '../../styles/common/layout.module.scss';
 
 const Admin = () => {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   const updateAuth = () => {
     setAuth(true);

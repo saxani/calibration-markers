@@ -45,7 +45,7 @@ const FormInputs = ({
 
   return (
     <div>
-      <div className={`${inputStyles.row} ${inputStyles.halves}`}>
+      <div className={`${inputStyles.row} ${inputStyles.thirds}`}>
         <Input
           name='Full Name'
           required={true}
@@ -58,6 +58,12 @@ const FormInputs = ({
           required={true}
           value={customer.title}
           param='title'
+          handleChange={handleChange}
+        />
+        <Input
+          name='Company'
+          value={customer.company}
+          param='company'
           handleChange={handleChange}
         />
       </div>

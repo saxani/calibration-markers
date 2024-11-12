@@ -9,9 +9,11 @@ import emailContent from './api/email/emailContent.js';
 import sendEmail from './api/email/sendEmail.js';
 import createOrder from './api/airtable/createOrder.js';
 import updateInventory from './api/airtable/updateInventory.js';
+import fetchInventory from './api/airtable/fetchInventory.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
+const environment = app.get('env');
 
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -42,12 +44,11 @@ app.post('/get-address', async (req, res) => {
 app.post('/submit', async (req, res) => {
   console.log('Got submission');
   console.log(req.body.customer);
-  const environment = app.get('env');
   const { customer } = req.body;
   const response = await createOrder(customer, environment);
   console.log(response.record);
 
-  const lastRecord = await updateInventory(response.record, environment);
+  await updateInventory(response.record, environment);
 
   if (response.record.id) {
     res.send({ response: 'ok' });
@@ -97,6 +98,19 @@ app.post('/login', async (req, res) => {
   }
 
   res.send({ matches });
+});
+
+app.get('/inventory', async (req, res) => {
+  console.log('Request for current inventory');
+
+  const lastRecord = await fetchInventory(environment);
+  res.send({ lastRecord });
+});
+
+app.post('/set-inventory', async (req, res) => {
+  console.log('Request to update inventory');
+  console.log(req.body);
+  res.send({ success: true });
 });
 
 app.get('*', (req, res) => {

@@ -8,6 +8,7 @@ const OrderForm = ({ scrollRef }) => {
   const [customer, setCustomer] = useState({
     fullName: '',
     title: '',
+    company: '',
     email: '',
     phone: '',
     address1: '',
@@ -117,6 +118,7 @@ const OrderForm = ({ scrollRef }) => {
         setCustomer({
           fullName: '',
           title: '',
+          company: '',
           email: '',
           phone: '',
           address1: '',

@@ -6,6 +6,7 @@ const AddressOptions = ({ data, onSelect }) => {
       <ul className={styles.list}>
         {data.map((item) => (
           <li
+            key={item.Text}
             onClick={() => {
               onSelect(item);
             }}

@@ -10,6 +10,7 @@ export default function createOrder(data, environment) {
           fields: {
             Name: data.fullName,
             Title: data.title,
+            Company: data.company,
             Email: data.email,
             'Phone Number': data.phone,
             'Street Address': data.address1,
