@@ -58,7 +58,7 @@ app.post('/submit', async (req, res) => {
       response.record.fields['Order Number']
     );
     const emailData = {
-      to: ['PharmAd Marketing <mail@pharmad.ca>'],
+      to: ['PharmAd Marketing <essity@pharmad.ca>'],
       sender: 'Automated bot <no-reply@pharmad.ca>',
       subject: 'New Calibration Markers Request',
       htmlBody: content,
